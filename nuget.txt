@@ -1,3 +1,5 @@
 install-package ninject -version 3.2.2.0
 install-package ninject.web.common -version 3.2.3.0
 install-package ninject.mvc5 -version 3.2.1
+install-package moq -version 4.2.1510.2205
+install-package microsoft.asp.net.mvc -version 5.2.3
