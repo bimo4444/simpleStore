@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SimpleStore.WebUI.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SimpleStore.WebUI.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SimpleStore.UnitTests.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SimpleStore.UnitTests.App_Start.NinjectWebCommon), "Stop")]
 
-namespace SimpleStore.WebUI.App_Start
+namespace SimpleStore.UnitTests.App_Start
 {
     using System;
     using System.Web;
@@ -10,8 +10,6 @@ namespace SimpleStore.WebUI.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using SimpleStore.WebUI.Infrastructure;
-    using System.Web.Mvc;
 
     public static class NinjectWebCommon 
     {
@@ -46,6 +44,7 @@ namespace SimpleStore.WebUI.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -62,7 +61,6 @@ namespace SimpleStore.WebUI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }        
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleStore.Domain", "Simpl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleStore.WebUI", "SimpleStore.WebUI\SimpleStore.WebUI.csproj", "{68700CAE-D073-4720-A7B4-41F40421E060}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleStore.UnitTests", "SimpleStore.UnitTests\SimpleStore.UnitTests.csproj", "{1D56B00C-853B-4309-BBC0-8AF8D4764376}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{68700CAE-D073-4720-A7B4-41F40421E060}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68700CAE-D073-4720-A7B4-41F40421E060}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68700CAE-D073-4720-A7B4-41F40421E060}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D56B00C-853B-4309-BBC0-8AF8D4764376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D56B00C-853B-4309-BBC0-8AF8D4764376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D56B00C-853B-4309-BBC0-8AF8D4764376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D56B00C-853B-4309-BBC0-8AF8D4764376}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
