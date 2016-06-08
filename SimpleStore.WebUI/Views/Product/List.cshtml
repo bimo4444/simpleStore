@@ -1,15 +1,15 @@
 ﻿@using SimpleStore.Domain.Entities;
-@model IEnumerable<Product>
+@using SimpleStore.WebUI.Models
+@using SimpleStore.WebUI.HtmlHelpers
+@model ProductsListViewModel
 
 @{
     ViewBag.Title = "Catalog";
 }
-@foreach(var p in @Model)
+@foreach(var p in @Model.Products)
 {
-    <div>
-        <h3>@p.Name</h3>
-        <p>@p.Description</p>
-        <h4>@p.Price.ToString("# rub")</h4>
-    </div>
+    @Html.Partial("ProductSummary", p)
 }
-
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+</div>
