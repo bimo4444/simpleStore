@@ -42,6 +42,95 @@ namespace SimpleStore.UnitTests
         }
 
         [TestMethod]
+        public void Generate_Category_Specific_Game_Count()
+        {
+            Mock<IProductRepository> mock = GetMock();
+            ProductController controller = new ProductController(mock.Object);
+            controller.pageSize = 3;
+
+            int res1 = ((ProductsListViewModel)controller.List("cat0").Model).PagingInfo.TotalItems;
+            int res2 = ((ProductsListViewModel)controller.List("cat1").Model).PagingInfo.TotalItems;
+            int res3 = ((ProductsListViewModel)controller.List("cat2").Model).PagingInfo.TotalItems;
+            int resAll = ((ProductsListViewModel)controller.List(null).Model).PagingInfo.TotalItems;
+
+            Assert.AreEqual(res1, 1);
+            Assert.AreEqual(res2, 2);
+            Assert.AreEqual(res3, 2);
+            Assert.AreEqual(resAll, 5);
+        }
+
+        [TestMethod]
+        public void Can_Add_New_Lines()
+        {
+            Product product1 = new Product { ProductId = 1, Name = "name1" };
+            Product product2 = new Product { ProductId = 2, Name = "name2" };
+            Cart cart = new Cart();
+            cart.AddItem(product1, 1);
+            cart.AddItem(product2, 1);
+            List<CartLine> result = cart.Lines.ToList();
+            Assert.AreEqual(result.Count(), 2);
+            Assert.AreEqual(result[0].Product, product1);
+            Assert.AreEqual(result[1].Product, product2);
+        }
+
+        [TestMethod]
+        public void Can_Add_New_Lines_To_Existing_Lines()
+        {
+            Product product1 = new Product { ProductId = 1, Name = "name1" };
+            Product product2 = new Product { ProductId = 2, Name = "name2" };
+            Cart cart = new Cart();
+            cart.AddItem(product1, 1);
+            cart.AddItem(product2, 1);
+            cart.AddItem(product1, 5);
+            List<CartLine> result = cart.Lines.OrderBy(o => o.Product.ProductId).ToList();
+            Assert.AreEqual(result.Count(), 2);
+            Assert.AreEqual(result[0].Quantity, 6);
+            Assert.AreEqual(result[1].Quantity, 1);
+        }
+
+        [TestMethod]
+        public void Can_Remove_Line()
+        {
+            Product product1 = new Product { ProductId = 1, Name = "name1" };
+            Product product2 = new Product { ProductId = 2, Name = "name2" };
+            Product product3 = new Product { ProductId = 3, Name = "name3" };
+            Cart cart = new Cart();
+            cart.AddItem(product1, 1);
+            cart.AddItem(product2, 4);
+            cart.AddItem(product3, 2);
+            cart.AddItem(product2, 1);
+            cart.RemoveLine(product2);
+            Assert.AreEqual(cart.Lines.Where(w => w.Product == product2).Count(), 0);
+            Assert.AreEqual(cart.Lines.Count(), 2);
+        }
+
+        [TestMethod]
+        public void Calculate_Cart_Total()
+        {
+            Product product1 = new Product { ProductId = 1, Name = "name1", Price = 100 };
+            Product product2 = new Product { ProductId = 2, Name = "name2", Price = 55 };
+            Cart cart = new Cart();
+            cart.AddItem(product1, 1);
+            cart.AddItem(product2, 1);
+            cart.AddItem(product1, 5);
+            decimal result = cart.ComputeTotalValue();
+            Assert.AreEqual(result, 655);
+        }
+
+        [TestMethod]
+        public void Can_Clear_Contents()
+        {
+            Product product1 = new Product { ProductId = 1, Name = "name1", Price = 100 };
+            Product product2 = new Product { ProductId = 2, Name = "name2", Price = 55 };
+            Cart cart = new Cart();
+            cart.AddItem(product1, 1);
+            cart.AddItem(product2, 1);
+            cart.AddItem(product1, 5);
+            cart.Clear();
+            Assert.AreEqual(cart.Lines.Count(), 0);
+        }
+
+        [TestMethod]
         public void Can_Filter_Games()
         {
             Mock<IProductRepository> mock = GetMock();

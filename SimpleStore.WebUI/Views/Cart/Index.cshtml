@@ -1,0 +1,41 @@
+﻿@model SimpleStore.WebUI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "simle store: your cart";
+}
+
+<h2>your cart</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>quantity</th>
+            <th>product</th>
+            <th class="text-right">price</th>
+            <th class="text-right">total price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-center">@line.Product.Name</td>
+                <td class="text-center">@line.Product.Price.ToString("# rub")</td>
+                <td class="text-center">
+                    @((line.Quantity * line.Product.Price).ToString("# rub"))
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">total:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("# rub")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">continue</a>
+</div>

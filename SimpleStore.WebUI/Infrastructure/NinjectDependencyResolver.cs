@@ -27,16 +27,24 @@ namespace SimpleStore.WebUI.Infrastructure
         }
         private void AddBindings()
         {
-            //var mock = new Mock<IProductRepository>();
-            //mock.Setup(m => m.Products).Returns(new List<Product>
-            //{
-            //    new Product { Category = "", Description = "", Name = "name1", Price = 111, ProductId = 0},
-            //    new Product { Category = "", Description = "", Name = "name2", Price = 222, ProductId = 1},
-            //    new Product { Category = "", Description = "", Name = "name3", Price = 333, ProductId = 2},
-            //    new Product { Category = "", Description = "", Name = "name4", Price = 444, ProductId = 3}
-            //});
-            //kernel.Bind<IProductRepository>().ToConstant(mock.Object);
-            kernel.Bind<IProductRepository>().To<ProductRepository>();
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new List<Product>
+            {
+                new Product { Category = "gggg", Description = "hhhh", Name = "name1", Price = 111, ProductId = 0},
+                new Product { Category = "gggg", Description = "hhhh", Name = "name2", Price = 222, ProductId = 1},
+                new Product { Category = "gg", Description = "hhhh", Name = "name3", Price = 333, ProductId = 2},
+                new Product { Category = "gg", Description = "hhhh", Name = "name4", Price = 444, ProductId = 3},
+                new Product { Category = "gg", Description = "hhhh", Name = "name4", Price = 444, ProductId = 4},
+                new Product { Category = "hhh", Description = "hhhh", Name = "name4", Price = 444, ProductId = 5},
+                new Product { Category = "hhh", Description = "hhhh", Name = "name4", Price = 444, ProductId = 6},
+                new Product { Category = "hhh", Description = "hhhh", Name = "name4", Price = 444, ProductId = 7},
+                new Product { Category = "gg", Description = "hhhh", Name = "name4", Price = 444, ProductId = 8},
+                new Product { Category = "gg", Description = "hhhh", Name = "name4", Price = 444, ProductId = 9},
+                new Product { Category = "gg", Description = "hhhh", Name = "name4", Price = 444, ProductId = 10},
+                new Product { Category = "gg", Description = "hhhh", Name = "name4", Price = 444, ProductId = 11}
+            });
+            kernel.Bind<IProductRepository>().ToConstant(mock.Object);
+            //kernel.Bind<IProductRepository>().To<ProductRepository>();
         }
     }
 }

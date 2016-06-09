@@ -35,8 +35,11 @@ namespace SimpleStore.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = repository.Products.Count()
-                }
+                    TotalItems = category == null ? 
+                    repository.Products.Count() :
+                    repository.Products.Where(w => w.Category == category).Count()
+                },
+                CurrentCategory = category
             };
             return View(model);
         }
